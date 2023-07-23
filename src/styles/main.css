@@ -34,7 +34,9 @@ code {
 }
 
 .card-header {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
     justify-content: space-between;
     align-items: center;
     width: 100%;
@@ -42,7 +44,10 @@ code {
 }
 
 .card-footer {
-    display: flex;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr auto 0.5fr;
+    gap: 10px;
     justify-content: space-between;
     align-items: center;
     width: 100%;
@@ -57,6 +62,15 @@ code {
     color: #000000;
 }
 
+.bot-link {
+    margin-top: 3px;
+    font-family: 'Helvetica', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #007aff;
+    text-decoration: none;
+}
+
 .generate-button {
     background-color: #e5f1ff;
     color: #007aff;
@@ -67,6 +81,10 @@ code {
     border-radius: 8px;
     cursor: pointer;
     transition: 0.2s ease;
+    grid-row-start: 1;
+    grid-column-start: 1;
+    grid-row-end: 2;
+    grid-column-end: 4;
 }
 
 .generate-button:hover {
@@ -112,6 +130,10 @@ code {
     cursor: pointer;
     transition: 0.2s ease;
     outline: none;
+    grid-row-start: 2;
+    grid-column-start: 1;
+    grid-row-end: 3;
+    grid-column-end: 2;
 }
 
 .animal-name-input:active {
@@ -128,6 +150,10 @@ code {
     border-radius: 8px;
     cursor: pointer;
     transition: 0.2s ease;
+    grid-row-start: 2;
+    grid-column-start: 3;
+    grid-row-end: 3;
+    grid-column-end: 4;
 }
 
 .download-button:hover {
@@ -157,7 +183,11 @@ code {
     border: none;
     border-radius: 8px;
     transition: 0.2s ease;
-    margin: 0 8px;
+    margin-left: 10px;
+    grid-row-start: 2;
+    grid-column-start: 2;
+    grid-row-end: 3;
+    grid-column-end: 3;
 }
 
 .telegram-button:hover {

@@ -113,12 +113,14 @@ const AnimalsPage: Component = () => {
                                 Random Animals
                             </Badge>
                         </h2>
-                        <button
-                            class="generate-button"
-                            onClick={onGenerateClick}
+                        <a
+                            href="https://t.me/randanimalbot"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="bot-link"
                         >
-                            Generate
-                        </button>
+                            @randanimalbot
+                        </a>
                     </div>
                     <div
                         class="animal-picture"
@@ -140,6 +142,12 @@ const AnimalsPage: Component = () => {
                         </Show>
                     </div>
                     <div class="card-footer">
+                        <button
+                            class="generate-button"
+                            onClick={onGenerateClick}
+                        >
+                            Generate
+                        </button>
                         <input
                             class="animal-name-input"
                             type="text"
