@@ -1,0 +1,185 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+        'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+        'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #f6f6f6;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.card {
+    max-width: 80%;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.card-title {
+    margin: 0;
+    font-family: 'Helvetica', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    color: #000000;
+}
+
+.generate-button {
+    background-color: #e5f1ff;
+    color: #007aff;
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.generate-button:hover {
+    filter: opacity(0.7);
+}
+
+.generate-button:active {
+    transform: scale(0.97);
+}
+
+.animal-picture {
+    width: 512px;
+    height: 512px;
+    background-color: #f2f2f2;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    color: #757575; /* Dark gray */
+    text-align: center;
+}
+
+.animal-picture::selection {
+    background-color: transparent;
+}
+
+.animal-name-input {
+    width: 100%;
+    height: 25px;
+    background-color: #f2f2f2;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    color: #757575;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s ease;
+    outline: none;
+}
+
+.animal-name-input:active {
+    transform: scale(0.97);
+}
+
+.download-button {
+    background-color: #007aff;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.download-button:hover {
+    filter: opacity(0.7);
+}
+
+.download-button:active {
+    transform: scale(0.97);
+}
+
+.loader {
+    width: 512px;
+    height: 512px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.telegram-button {
+    background-color: #d3d3d3;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    transition: 0.2s ease;
+    margin: 0 8px;
+}
+
+.telegram-button:hover {
+    filter: opacity(0.7);
+}
+
+.telegram-button:active {
+    transform: scale(0.97);
+}
+
+.telegram-button.available {
+    background-color: #76c84d;
+    cursor: pointer;
+}
+
+.telegram-button.unavailable {
+    background-color: #e56555;
+}
+
+button:disabled,
+button[disabled] {
+    filter: opacity(0.7);
+    cursor: not-allowed;
+    pointer-events: none;
+}
