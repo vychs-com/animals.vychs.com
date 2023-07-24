@@ -117,7 +117,7 @@ code {
 }
 
 .animal-name-input {
-    width: 100%;
+    width: calc(100% - 10px);
     height: 25px;
     background-color: #f2f2f2;
     border: none;
@@ -183,7 +183,6 @@ code {
     border: none;
     border-radius: 8px;
     transition: 0.2s ease;
-    margin-left: 10px;
     grid-row-start: 2;
     grid-column-start: 2;
     grid-row-end: 3;
@@ -214,14 +213,48 @@ button[disabled] {
     pointer-events: none;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 700px) {
     .animal-picture {
         width: 70vw;
-        height: 50vh;
+        height: 32vh;
     }
 
     .loader {
         width: 70vw;
-        height: 50vh;
+        height: 32vh;
+    }
+
+    .card-footer {
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .generate-button {
+        grid-row-start: 1;
+        grid-column-start: 1;
+        grid-row-end: 2;
+        grid-column-end: 4;
+    }
+
+    .animal-name-input {
+        grid-row-start: 2;
+        grid-column-start: 1;
+        grid-row-end: 3;
+        grid-column-end: 4;
+    }
+
+    .telegram-button {
+        grid-row-start: 3;
+        grid-column-start: 1;
+        grid-row-end: 4;
+        grid-column-end: 2;
+    }
+
+    .download-button {
+        grid-row-start: 3;
+        grid-column-start: 2;
+        grid-row-end: 4;
+        grid-column-end: 4;
     }
 }

@@ -1,45 +1,17 @@
 import { faTelegram } from '@fortawesome/free-brands-svg-icons'
 import { Badge, CircularProgress } from '@suid/material'
 import Fa from 'solid-fa'
-import { Show, createEffect, createSignal, type Component } from 'solid-js'
+import { Show, createSignal, type Component } from 'solid-js'
 import { toast } from 'solid-toast'
+import { downloadImage } from '../helpers/download-image'
 import { generateRandomAnimal } from '../services/animals.service'
 import { AnimalData } from '../types/animal/AnimalData'
 
 const AnimalsPage: Component = () => {
-    const [telegramButtonRef, setTelegramButtonRef] = createSignal()
-
     const [animalPicture, setAnimalPicture] = createSignal()
     const [animalData, setAnimalData] = createSignal<AnimalData | undefined>()
     const [showPlaceholder, setShowPlaceholder] = createSignal(true)
     const [showLoader, setShowLoader] = createSignal(false)
-
-    createEffect(() => {
-        if (!telegramButtonRef()) return
-
-        const buttonElement = telegramButtonRef() as HTMLButtonElement
-
-        if (showLoader()) {
-            buttonElement.classList.add('grey')
-        } else {
-            buttonElement.classList.remove('grey')
-        }
-
-        const animalDataValue = animalData() as AnimalData
-        if (!animalDataValue) return
-
-        if (!animalDataValue.is_username_available) {
-            buttonElement.classList.add('unavailable')
-        } else {
-            buttonElement.classList.remove('unavailable')
-        }
-
-        if (animalDataValue.is_username_available) {
-            buttonElement.classList.add('available')
-        } else {
-            buttonElement.classList.remove('available')
-        }
-    })
 
     const onGenerateClick = async () => {
         setShowLoader(true)
@@ -66,16 +38,13 @@ const AnimalsPage: Component = () => {
             return
         }
         toast.success('Download started')
-
-        const a = document.createElement('a')
-        a.href = 'data:image/png;base64,' + animalPicture()
-        a.download =
+        downloadImage(
+            animalPicture() as string,
             (animalData() as AnimalData).name
                 .toLowerCase()
                 .split(' ')
                 .join('_') + '.png'
-        a.click()
-        a.remove()
+        )
     }
 
     const onAnimalNameClick = () => {
@@ -156,8 +125,14 @@ const AnimalsPage: Component = () => {
                             readOnly
                         />
                         <button
-                            class="telegram-button"
-                            ref={setTelegramButtonRef}
+                            class={
+                                'telegram-button ' +
+                                (showLoader() || !animalPicture()
+                                    ? 'grey'
+                                    : animalData()?.is_username_available
+                                    ? 'available'
+                                    : 'unavailable')
+                            }
                             onClick={onTelegramButtonClick}
                             disabled={
                                 showLoader() ||
