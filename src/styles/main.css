@@ -35,8 +35,8 @@ code {
 
 .card-header {
     display: grid;
-    grid-template-columns: 1fr;
     grid-template-rows: 1fr;
+    grid-template-columns: auto;
     justify-content: space-between;
     align-items: center;
     width: 100%;
@@ -60,10 +60,22 @@ code {
     font-weight: 600;
     font-size: 24px;
     color: #000000;
+    grid-row-start: 1;
+    grid-column-start: 1;
+    grid-row-end: 2;
+    grid-column-end: 3;
+}
+
+.logotype {
+    animation: logo-spin infinite 20s linear;
+    grid-row-start: 1;
+    grid-column-start: 3;
+    grid-row-end: 2;
+    grid-column-end: 4;
+    transition: 0.2s;
 }
 
 .bot-link {
-    margin-top: 3px;
     font-family: 'Helvetica', sans-serif;
     font-weight: 500;
     font-size: 16px;
@@ -206,6 +218,14 @@ code {
     background-color: #e56555;
 }
 
+.footer {
+    padding: 10px 0;
+    text-align: center;
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+}
+
 button:disabled,
 button[disabled] {
     filter: opacity(0.7);
@@ -256,5 +276,14 @@ button[disabled] {
         grid-column-start: 2;
         grid-row-end: 4;
         grid-column-end: 4;
+    }
+}
+
+@keyframes logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
     }
 }

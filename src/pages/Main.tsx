@@ -3,6 +3,7 @@ import { Badge, CircularProgress } from '@suid/material'
 import Fa from 'solid-fa'
 import { Show, createSignal, type Component } from 'solid-js'
 import { toast } from 'solid-toast'
+import logo from '../assets/logo.svg'
 import { downloadImage } from '../helpers/download-image'
 import { generateRandomAnimal } from '../services/animals.service'
 import { AnimalData } from '../types/animal/AnimalData'
@@ -82,13 +83,8 @@ const AnimalsPage: Component = () => {
                                 Random Animals
                             </Badge>
                         </h2>
-                        <a
-                            href="https://t.me/randanimalbot"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="bot-link"
-                        >
-                            @randanimalbot
+                        <a class="logotype" href="https://t.me/softik">
+                            <img src={logo} width="64" alt="logotype" />
                         </a>
                     </div>
                     <div
@@ -114,6 +110,7 @@ const AnimalsPage: Component = () => {
                         <button
                             class="generate-button"
                             onClick={onGenerateClick}
+                            disabled={showLoader()}
                         >
                             Generate
                         </button>
@@ -152,6 +149,17 @@ const AnimalsPage: Component = () => {
                     </div>
                 </div>
             </div>
+            <footer class="footer">
+                &copy 2023{' • '}
+                <a
+                    href="https://t.me/randanimalbot"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="bot-link"
+                >
+                    @randanimalbot
+                </a>
+            </footer>
         </div>
     )
 }
