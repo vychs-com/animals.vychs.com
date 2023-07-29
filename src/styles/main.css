@@ -218,14 +218,6 @@ code {
     background-color: #e56555;
 }
 
-.footer {
-    padding: 10px 0;
-    text-align: center;
-    position: fixed;
-    bottom: 10px;
-    width: 100%;
-}
-
 button:disabled,
 button[disabled] {
     filter: opacity(0.7);
