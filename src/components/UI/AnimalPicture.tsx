@@ -12,7 +12,7 @@ export const AnimalPicture = ({
         class="animal-picture"
         style={{
             'background-image': animalPicture()
-                ? `url('data:image/png;base64,${animalPicture()}')`
+                ? `url(${animalPicture()})`
                 : undefined,
         }}
     >

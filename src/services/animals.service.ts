@@ -1,7 +1,5 @@
 import api, { wrapGetResponse } from '../helpers/api'
 
 export const generateRandomAnimal = async () => {
-    return wrapGetResponse(
-        await api.post('/animals/draw', { format: 'base64' })
-    )
+    return wrapGetResponse(await api.get('/animals/draw'))
 }

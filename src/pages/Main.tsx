@@ -31,10 +31,10 @@ const AnimalsPage: Component = () => {
             return
         }
 
-        const { image, meta } = res.result
+        const { url, information } = res.result
         setShowLoader(false)
-        setAnimalPicture(image)
-        setAnimalData(meta)
+        setAnimalPicture(import.meta.env.VITE_MEDIA_URL + url)
+        setAnimalData(information)
     }
 
     const onDownloadClick = () => {
@@ -43,13 +43,7 @@ const AnimalsPage: Component = () => {
             return
         }
         toast.success('Download started')
-        downloadImage(
-            animalPicture() as string,
-            (animalData() as AnimalData).name
-                .toLowerCase()
-                .split(' ')
-                .join('_') + '.png'
-        )
+        downloadImage(animalPicture() as string)
     }
 
     const onAnimalNameClick = () => {

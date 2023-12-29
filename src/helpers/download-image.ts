@@ -1,10 +1,8 @@
-const MIMETYPE = 'image/png'
-const PREFIX = `data:${MIMETYPE};base64,`
-
-export const downloadImage = (base64: string, fileName = 'photo.png') => {
+export const downloadImage = (url: string) => {
+    const downloadUrl = new URL(url)
+    downloadUrl.searchParams.set('download', 'true')
     const a = document.createElement('a')
-    a.href = PREFIX + base64
-    a.download = fileName
+    a.href = downloadUrl.href
     a.click()
     a.remove()
 }
