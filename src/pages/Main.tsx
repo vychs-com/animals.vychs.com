@@ -17,12 +17,16 @@ const AnimalsPage: Component = () => {
     const [animalData, setAnimalData] = createSignal<AnimalData | undefined>()
     const [showPlaceholder, setShowPlaceholder] = createSignal(true)
     const [showLoader, setShowLoader] = createSignal(false)
+    
+    const resetLoader = () => {
+        setShowPlaceholder(true)
+        setShowLoader(false)
+    }
 
     const resetAnimalPicture = () => {
         setAnimalPicture()
         setAnimalData()
-        setShowPlaceholder(true)
-        setShowLoader(false)
+        resetLoader()
     }
 
     const onGenerateClick = async () => {
@@ -42,8 +46,9 @@ const AnimalsPage: Component = () => {
             setAnimalData(information)
         } catch (e) {
             console.error(e)
-        } finally {
             resetAnimalPicture()
+        } finally {
+            resetLoader()
         }
     }
 
