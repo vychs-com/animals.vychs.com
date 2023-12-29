@@ -17,16 +17,11 @@ const AnimalsPage: Component = () => {
     const [animalData, setAnimalData] = createSignal<AnimalData | undefined>()
     const [showPlaceholder, setShowPlaceholder] = createSignal(true)
     const [showLoader, setShowLoader] = createSignal(false)
-    
-    const resetLoader = () => {
-        setShowPlaceholder(true)
-        setShowLoader(false)
-    }
 
     const resetAnimalPicture = () => {
         setAnimalPicture()
         setAnimalData()
-        resetLoader()
+        setShowPlaceholder(true)
     }
 
     const onGenerateClick = async () => {
@@ -41,14 +36,14 @@ const AnimalsPage: Component = () => {
             }
 
             const { url, information } = res.result
-            setShowLoader(false)
+
             setAnimalPicture(import.meta.env.VITE_MEDIA_URL + url)
             setAnimalData(information)
         } catch (e) {
             console.error(e)
             resetAnimalPicture()
         } finally {
-            resetLoader()
+            setShowLoader(false)
         }
     }
 
