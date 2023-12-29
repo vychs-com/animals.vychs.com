@@ -18,23 +18,33 @@ const AnimalsPage: Component = () => {
     const [showPlaceholder, setShowPlaceholder] = createSignal(true)
     const [showLoader, setShowLoader] = createSignal(false)
 
-    const onGenerateClick = async () => {
-        setShowLoader(true)
-        setShowPlaceholder(false)
-
-        const res = await generateRandomAnimal()
-        if (!res) {
-            setAnimalPicture()
-            setAnimalData()
-            setShowPlaceholder(true)
-            setShowLoader(false)
-            return
-        }
-
-        const { url, information } = res.result
+    const resetAnimalPicture = () => {
+        setAnimalPicture()
+        setAnimalData()
+        setShowPlaceholder(true)
         setShowLoader(false)
-        setAnimalPicture(import.meta.env.VITE_MEDIA_URL + url)
-        setAnimalData(information)
+    }
+
+    const onGenerateClick = async () => {
+        try {
+            setShowLoader(true)
+            setShowPlaceholder(false)
+
+            const res = await generateRandomAnimal()
+            if (!res) {
+                resetAnimalPicture()
+                return
+            }
+
+            const { url, information } = res.result
+            setShowLoader(false)
+            setAnimalPicture(import.meta.env.VITE_MEDIA_URL + url)
+            setAnimalData(information)
+        } catch (e) {
+            console.error(e)
+        } finally {
+            resetAnimalPicture()
+        }
     }
 
     const onDownloadClick = () => {
