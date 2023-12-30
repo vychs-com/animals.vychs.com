@@ -58,11 +58,11 @@ code {
 }
 
 .middle-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 0.5fr 0.5fr 1fr;
+    grid-template-rows: auto auto;
+    grid-gap: 10px;
     margin-top: 10px;
-    gap: 10px;
 }
 
 .bottom-row {
@@ -103,8 +103,8 @@ code {
 }
 
 .generate-button {
-    flex-grow: 1; /* Make the generate button grow to fill space */
-    margin-right: 10px; /* Add some space between the button and the accordion toggle */
+    flex-grow: 1;
+    margin-right: 10px;
     background-color: #e5f1ff;
     color: #007aff;
     font-family: 'Arial', sans-serif;
@@ -117,7 +117,6 @@ code {
 }
 
 .reset-colors-button {
-    flex-grow: 1;
     background-color: #ffdcd5;
     color: #e56555;
     font-family: 'Arial', sans-serif;
@@ -152,6 +151,13 @@ code {
     font-size: 14px;
     color: #757575;
     text-align: center;
+}
+
+.background-picker,
+.animal-picker {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .animal-picture::selection {
@@ -243,20 +249,8 @@ button[disabled] {
     pointer-events: none;
 }
 
-.background-picker,
-.animal-picker {
-    display: flex;
-    align-items: center;
-}
-
 .animal-picker {
     margin: 0 auto;
-}
-
-.color-picker-container {
-    display: flex;
-    align-items: center;
-    gap: 25px;
 }
 
 .color-picker-label {
@@ -322,7 +316,24 @@ button[disabled] {
 }
 
 .accordion-content.open {
-    max-height: 300px; /* Adjust this value based on the content size */
+    max-height: 300px;
+}
+
+.dropdown {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid #dcdcdc;
+    background-color: #fff;
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    color: #757575;
+    cursor: pointer;
+    grid-column: 1 / -1;
+}
+
+.dropdown:focus,
+.dropdown:hover {
+    border-color: #007aff;
 }
 
 @media only screen and (max-width: 700px) {
@@ -340,7 +351,7 @@ button[disabled] {
         display: none;
     }
 
-    .color-picker-container {
+    .middle-row {
         gap: 10px;
     }
 }

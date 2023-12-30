@@ -2,15 +2,19 @@ import { faTelegram } from '@fortawesome/free-brands-svg-icons'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { Badge } from '@suid/material'
 import Fa from 'solid-fa'
-import { Show, createSignal, type Component } from 'solid-js'
+import { Show, createSignal, onMount, type Component } from 'solid-js'
 import { toast } from 'solid-toast'
 import logo from '../assets/logo.svg'
 import { AnimalPictureLoader } from '../components/Loaders/AnimalPictureLoader'
 import { AnimalPicturePlaceholder } from '../components/Placeholders/AnimalPicturePlaceholder'
 import { AnimalPicture } from '../components/UI/AnimalPicture'
 import Card from '../components/UI/Card'
+import { Dropdown, DropdownOption } from '../components/UI/Dropdown'
 import { downloadImage } from '../helpers/download-image'
-import { generateRandomAnimal } from '../services/animals.service'
+import {
+    generateRandomAnimal,
+    getSpeciesList,
+} from '../services/animals.service'
 import { AnimalData } from '../types/animal/AnimalData'
 
 const AnimalsPage: Component = () => {
@@ -28,6 +32,25 @@ const AnimalsPage: Component = () => {
     >()
     const [animalColor, setAnimalColor] = createSignal<string | undefined>()
     const [isAccordionOpen, setIsAccordionOpen] = createSignal(false)
+    const [species, setSpecies] = createSignal<DropdownOption[]>([])
+    const [isSpeciesDropdownDisabled, setIsSpeciesDropdownDisabled] =
+        createSignal<boolean>(false)
+    const [animal, setAnimal] = createSignal<string | undefined>()
+
+    onMount(async () => {
+        const res = await getSpeciesList()
+        if (!res) {
+            setIsSpeciesDropdownDisabled(true)
+            return
+        } else {
+            setSpecies(
+                res.result.map((e: string) => ({
+                    value: e,
+                    label: e,
+                }))
+            )
+        }
+    })
 
     const toggleAccordion = () => {
         setIsAccordionOpen(!isAccordionOpen())
@@ -45,6 +68,7 @@ const AnimalsPage: Component = () => {
             setShowPlaceholder(false)
 
             const res = await generateRandomAnimal({
+                animal: animal(),
                 color: animalColor(),
                 background: backgroundColor(),
             })
@@ -118,6 +142,14 @@ const AnimalsPage: Component = () => {
         setAnimalColor(target.value)
     }
 
+    const onDropdownChange = (option: string) => {
+        if (option === 'none') {
+            setAnimal()
+        } else {
+            setAnimal(option)
+        }
+    }
+
     return (
         <div class="container">
             <Card>
@@ -168,32 +200,30 @@ const AnimalsPage: Component = () => {
                             }`}
                         >
                             <div class="middle-row">
-                                <div class="color-picker-container">
-                                    <span class="background-picker">
-                                        <label class="color-picker-label">
-                                            Background:
-                                        </label>
-                                        <input
-                                            ref={setRefBackgroundColorPicker}
-                                            class="color-picker background-color-input"
-                                            type="color"
-                                            value="#ffffff"
-                                            onChange={onBackgroundColorChange}
-                                        />
-                                    </span>
-                                    <span class="animal-picker">
-                                        <label class="color-picker-label">
-                                            Animal:
-                                        </label>
-                                        <input
-                                            ref={setRefAnimalColorPicker}
-                                            class="color-picker animal-color-input"
-                                            type="color"
-                                            value="#ffffff"
-                                            onChange={onAnimalColorChange}
-                                        />
-                                    </span>
-                                </div>
+                                <span class="background-picker">
+                                    <label class="color-picker-label">
+                                        Background:
+                                    </label>
+                                    <input
+                                        ref={setRefBackgroundColorPicker}
+                                        class="color-picker background-color-input"
+                                        type="color"
+                                        value="#ffffff"
+                                        onChange={onBackgroundColorChange}
+                                    />
+                                </span>
+                                <span class="animal-picker">
+                                    <label class="color-picker-label">
+                                        Animal:
+                                    </label>
+                                    <input
+                                        ref={setRefAnimalColorPicker}
+                                        class="color-picker animal-color-input"
+                                        type="color"
+                                        value="#ffffff"
+                                        onChange={onAnimalColorChange}
+                                    />
+                                </span>
                                 <button
                                     class="reset-colors-button"
                                     onClick={onResetClick}
@@ -203,6 +233,18 @@ const AnimalsPage: Component = () => {
                                 >
                                     Reset Colors
                                 </button>
+                                <Dropdown
+                                    options={[
+                                        {
+                                            value: 'none',
+                                            label: 'Select Animal',
+                                        },
+                                        ...species(),
+                                    ]}
+                                    defaultValue="none"
+                                    onChange={onDropdownChange}
+                                    disabled={isSpeciesDropdownDisabled()}
+                                />
                             </div>
                         </div>
                         <div class="bottom-row">
@@ -214,7 +256,14 @@ const AnimalsPage: Component = () => {
                                 readOnly
                             />
                             <button
-                                class="telegram-button"
+                                class={
+                                    'telegram-button ' +
+                                    (showLoader() || !animalPicture()
+                                        ? 'grey'
+                                        : animalData()?.username_available
+                                        ? 'available'
+                                        : 'unavailable')
+                                }
                                 onClick={onTelegramButtonClick}
                                 disabled={
                                     showLoader() ||
