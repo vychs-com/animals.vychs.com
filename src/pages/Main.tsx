@@ -1,4 +1,5 @@
 import { faTelegram } from '@fortawesome/free-brands-svg-icons'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { Badge } from '@suid/material'
 import Fa from 'solid-fa'
 import { Show, createSignal, type Component } from 'solid-js'
@@ -26,6 +27,11 @@ const AnimalsPage: Component = () => {
         string | undefined
     >()
     const [animalColor, setAnimalColor] = createSignal<string | undefined>()
+    const [isAccordionOpen, setIsAccordionOpen] = createSignal(false)
+
+    const toggleAccordion = () => {
+        setIsAccordionOpen(!isAccordionOpen())
+    }
 
     const resetAnimalPicture = () => {
         setAnimalPicture()
@@ -135,78 +141,97 @@ const AnimalsPage: Component = () => {
                         </Show>
                     </AnimalPicture>
                     <Card.Footer>
-                        <button
-                            class="generate-button"
-                            onClick={onGenerateClick}
-                            disabled={showLoader()}
-                        >
-                            Generate
-                        </button>
-                        <input
-                            class="animal-name-input"
-                            type="text"
-                            value={animalData()?.name ?? '...'}
-                            onClick={onAnimalNameClick}
-                            readOnly
-                        />
-                        <button
-                            class={
-                                'telegram-button ' +
-                                (showLoader() || !animalPicture()
-                                    ? 'grey'
-                                    : animalData()?.username_available
-                                    ? 'available'
-                                    : 'unavailable')
-                            }
-                            onClick={onTelegramButtonClick}
-                            disabled={
-                                showLoader() ||
-                                !animalPicture() ||
-                                !animalData()?.username_available
-                            }
-                        >
-                            <Fa icon={faTelegram} />
-                        </button>
-                        <button
-                            class="download-button"
-                            onClick={onDownloadClick}
-                            disabled={showLoader() || !animalPicture()}
-                        >
-                            Download
-                        </button>
-                        <div class="color-picker-container">
-                            <span class="background-picker">
-                                <label class="color-picker-label">
-                                    Background:
-                                </label>
-                                <input
-                                    ref={setRefBackgroundColorPicker}
-                                    class="color-picker background-color-input"
-                                    type="color"
-                                    value="#ffffff"
-                                    onChange={onBackgroundColorChange}
+                        <div class="top-row">
+                            <button
+                                class="generate-button"
+                                onClick={onGenerateClick}
+                                disabled={showLoader()}
+                            >
+                                Generate
+                            </button>
+                            <button
+                                onClick={toggleAccordion}
+                                class="accordion-toggle"
+                            >
+                                <Fa
+                                    /* @ts-ignore */
+                                    icon={faChevronDown}
+                                    class={`icon ${
+                                        isAccordionOpen() ? 'rotate' : ''
+                                    }`}
                                 />
-                            </span>
-                            <span class="animal-picker">
-                                <label class="color-picker-label">
-                                    Animal:
-                                </label>
-                                <input
-                                    ref={setRefAnimalColorPicker}
-                                    class="color-picker animal-color-input"
-                                    type="color"
-                                    value="#ffffff"
-                                    onChange={onAnimalColorChange}
-                                />
-                            </span>
+                            </button>
                         </div>
-                        <button
-                            class="reset-colors-button"
-                            onClick={onResetClick}
-                            disabled={!backgroundColor() && !animalColor()}
+                        <div
+                            class={`accordion-content ${
+                                isAccordionOpen() ? 'open' : ''
+                            }`}
                         >
-                            Reset Colors
-                        </button>
+                            <div class="middle-row">
+                                <div class="color-picker-container">
+                                    <span class="background-picker">
+                                        <label class="color-picker-label">
+                                            Background:
+                                        </label>
+                                        <input
+                                            ref={setRefBackgroundColorPicker}
+                                            class="color-picker background-color-input"
+                                            type="color"
+                                            value="#ffffff"
+                                            onChange={onBackgroundColorChange}
+                                        />
+                                    </span>
+                                    <span class="animal-picker">
+                                        <label class="color-picker-label">
+                                            Animal:
+                                        </label>
+                                        <input
+                                            ref={setRefAnimalColorPicker}
+                                            class="color-picker animal-color-input"
+                                            type="color"
+                                            value="#ffffff"
+                                            onChange={onAnimalColorChange}
+                                        />
+                                    </span>
+                                </div>
+                                <button
+                                    class="reset-colors-button"
+                                    onClick={onResetClick}
+                                    disabled={
+                                        !backgroundColor() && !animalColor()
+                                    }
+                                >
+                                    Reset Colors
+                                </button>
+                            </div>
+                        </div>
+                        <div class="bottom-row">
+                            <input
+                                class="animal-name-input"
+                                type="text"
+                                value={animalData()?.name ?? '...'}
+                                onClick={onAnimalNameClick}
+                                readOnly
+                            />
+                            <button
+                                class="telegram-button"
+                                onClick={onTelegramButtonClick}
+                                disabled={
+                                    showLoader() ||
+                                    !animalPicture() ||
+                                    !animalData()?.username_available
+                                }
+                            >
+                                <Fa icon={faTelegram} />
+                            </button>
+                            <button
+                                class="download-button"
+                                onClick={onDownloadClick}
+                                disabled={showLoader() || !animalPicture()}
+                            >
+                                Download
+                            </button>
+                        </div>
                     </Card.Footer>
                 </Card.Content>
             </Card>

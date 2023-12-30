@@ -44,14 +44,33 @@ code {
 }
 
 .card-footer {
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: 1fr auto 0.5fr;
-    gap: 10px;
-    justify-content: space-between;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
     width: 100%;
     margin-top: 20px;
+}
+
+.top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.middle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+.bottom-row {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-top: 10px;
+    gap: 10px;
 }
 
 .card-title {
@@ -84,6 +103,8 @@ code {
 }
 
 .generate-button {
+    flex-grow: 1; /* Make the generate button grow to fill space */
+    margin-right: 10px; /* Add some space between the button and the accordion toggle */
     background-color: #e5f1ff;
     color: #007aff;
     font-family: 'Arial', sans-serif;
@@ -93,13 +114,10 @@ code {
     border-radius: 8px;
     cursor: pointer;
     transition: 0.2s ease;
-    grid-row-start: 1;
-    grid-column-start: 1;
-    grid-row-end: 2;
-    grid-column-end: 4;
 }
 
 .reset-colors-button {
+    flex-grow: 1;
     background-color: #ffdcd5;
     color: #e56555;
     font-family: 'Arial', sans-serif;
@@ -109,10 +127,6 @@ code {
     border-radius: 8px;
     cursor: pointer;
     transition: 0.2s ease;
-    grid-row-start: 3;
-    grid-column-start: 2;
-    grid-row-end: 3;
-    grid-column-end: 4;
 }
 
 .generate-button:hover {
@@ -158,10 +172,6 @@ code {
     cursor: pointer;
     transition: 0.2s ease;
     outline: none;
-    grid-row-start: 2;
-    grid-column-start: 1;
-    grid-row-end: 3;
-    grid-column-end: 2;
 }
 
 .animal-name-input:active {
@@ -178,10 +188,6 @@ code {
     border-radius: 8px;
     cursor: pointer;
     transition: 0.2s ease;
-    grid-row-start: 2;
-    grid-column-start: 3;
-    grid-row-end: 3;
-    grid-column-end: 4;
 }
 
 .download-button:hover {
@@ -211,10 +217,6 @@ code {
     border: none;
     border-radius: 8px;
     transition: 0.2s ease;
-    grid-row-start: 2;
-    grid-column-start: 2;
-    grid-row-end: 3;
-    grid-column-end: 3;
 }
 
 .telegram-button:hover {
@@ -254,11 +256,7 @@ button[disabled] {
 .color-picker-container {
     display: flex;
     align-items: center;
-    margin-right: 10px;
-    grid-row-start: 3;
-    grid-column-start: 1;
-    grid-row-end: 3;
-    grid-column-end: 2;
+    gap: 25px;
 }
 
 .color-picker-label {
@@ -298,6 +296,35 @@ button[disabled] {
     border: 0;
 }
 
+.accordion-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon {
+    transition: transform 0.3s ease;
+    color: #007aff;
+}
+
+.icon.rotate {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+}
+
+.accordion-content.open {
+    max-height: 300px; /* Adjust this value based on the content size */
+}
+
 @media only screen and (max-width: 700px) {
     .animal-picture {
         width: 70vw;
@@ -309,60 +336,12 @@ button[disabled] {
         height: 32vh;
     }
 
-    .card-footer {
-        display: grid;
-        grid-template-rows: 1fr 1fr 1fr;
-        grid-template-columns: 1fr 1fr 1fr;
-    }
-
-    .generate-button {
-        grid-row-start: 1;
-        grid-column-start: 1;
-        grid-row-end: 2;
-        grid-column-end: 4;
-    }
-
-    .animal-name-input {
-        grid-row-start: 2;
-        grid-column-start: 1;
-        grid-row-end: 3;
-        grid-column-end: 4;
-    }
-
-    .telegram-button {
-        grid-row-start: 3;
-        grid-column-start: 1;
-        grid-row-end: 4;
-        grid-column-end: 2;
-    }
-
-    .download-button {
-        grid-row-start: 3;
-        grid-column-start: 2;
-        grid-row-end: 4;
-        grid-column-end: 4;
-    }
-
-    .reset-colors-button {
-        grid-row-start: 4;
-        grid-column-start: 2;
-        grid-row-end: 4;
-        grid-column-end: 4;
+    .color-picker-label {
+        display: none;
     }
 
     .color-picker-container {
-        grid-row-start: 4;
-        grid-column-start: 1;
-        grid-row-end: 4;
-        grid-column-end: 2;
-    }
-
-    .color-picker {
-        width: 30px;
-    }
-
-    .animal-picker {
-        margin: 0 12px;
+        gap: 10px;
     }
 }
 
