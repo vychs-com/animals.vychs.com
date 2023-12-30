@@ -7,11 +7,12 @@ const api = axios.create({
 })
 
 const wrapGetResponse = (response: AxiosResponse) => {
-    if (!response.data || response.status !== 200) return null
+    if (!response.data || !response.data.data || response.status !== 200)
+        return null
 
     return {
         status: response.status,
-        result: response.data,
+        result: response.data.data,
     }
 }
 
@@ -20,7 +21,7 @@ const wrapPostResponse = (response: AxiosResponse) => {
 
     return {
         status: response.status,
-        ...(response.data ? { result: response.data } : {}),
+        ...(response.data?.data ? { result: response.data.data } : {}),
     }
 }
 

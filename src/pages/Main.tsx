@@ -17,6 +17,15 @@ const AnimalsPage: Component = () => {
     const [animalData, setAnimalData] = createSignal<AnimalData | undefined>()
     const [showPlaceholder, setShowPlaceholder] = createSignal(true)
     const [showLoader, setShowLoader] = createSignal(false)
+    const [refBackgroundColorPicker, setRefBackgroundColorPicker] =
+        createSignal<HTMLInputElement | undefined>()
+    const [refAnimalColorPicker, setRefAnimalColorPicker] = createSignal<
+        HTMLInputElement | undefined
+    >()
+    const [backgroundColor, setBackgroundColor] = createSignal<
+        string | undefined
+    >()
+    const [animalColor, setAnimalColor] = createSignal<string | undefined>()
 
     const resetAnimalPicture = () => {
         setAnimalPicture()
@@ -29,16 +38,19 @@ const AnimalsPage: Component = () => {
             setShowLoader(true)
             setShowPlaceholder(false)
 
-            const res = await generateRandomAnimal()
+            const res = await generateRandomAnimal({
+                color: animalColor(),
+                background: backgroundColor(),
+            })
             if (!res) {
                 resetAnimalPicture()
                 return
             }
 
-            const { url, information } = res.result
+            const { url, ...rest } = res.result
 
             setAnimalPicture(import.meta.env.VITE_MEDIA_URL + url)
-            setAnimalData(information)
+            setAnimalData(rest)
         } catch (e) {
             console.error(e)
             resetAnimalPicture()
@@ -79,6 +91,25 @@ const AnimalsPage: Component = () => {
                     .join(''),
             '_blank'
         )
+    }
+
+    const onResetClick = () => {
+        refBackgroundColorPicker()!.value = '#ffffff'
+        refAnimalColorPicker()!.value = '#ffffff'
+        setBackgroundColor()
+        setAnimalColor()
+    }
+
+    const onBackgroundColorChange = (event: Event) => {
+        const target = event.target as HTMLInputElement
+        if (!target) return
+        setBackgroundColor(target.value)
+    }
+
+    const onAnimalColorChange = (event: Event) => {
+        const target = event.target as HTMLInputElement
+        if (!target) return
+        setAnimalColor(target.value)
     }
 
     return (
@@ -123,7 +154,7 @@ const AnimalsPage: Component = () => {
                                 'telegram-button ' +
                                 (showLoader() || !animalPicture()
                                     ? 'grey'
-                                    : animalData()?.is_username_available
+                                    : animalData()?.username_available
                                     ? 'available'
                                     : 'unavailable')
                             }
@@ -131,7 +162,7 @@ const AnimalsPage: Component = () => {
                             disabled={
                                 showLoader() ||
                                 !animalPicture() ||
-                                !animalData()?.is_username_available
+                                !animalData()?.username_available
                             }
                         >
                             <Fa icon={faTelegram} />
@@ -142,6 +173,39 @@ const AnimalsPage: Component = () => {
                             disabled={showLoader() || !animalPicture()}
                         >
                             Download
+                        </button>
+                        <div class="color-picker-container">
+                            <span class="background-picker">
+                                <label class="color-picker-label">
+                                    Background:
+                                </label>
+                                <input
+                                    ref={setRefBackgroundColorPicker}
+                                    class="color-picker background-color-input"
+                                    type="color"
+                                    value="#ffffff"
+                                    onChange={onBackgroundColorChange}
+                                />
+                            </span>
+                            <span class="animal-picker">
+                                <label class="color-picker-label">
+                                    Animal:
+                                </label>
+                                <input
+                                    ref={setRefAnimalColorPicker}
+                                    class="color-picker animal-color-input"
+                                    type="color"
+                                    value="#ffffff"
+                                    onChange={onAnimalColorChange}
+                                />
+                            </span>
+                        </div>
+                        <button
+                            class="reset-colors-button"
+                            onClick={onResetClick}
+                            disabled={!backgroundColor() && !animalColor()}
+                        >
+                            Reset Colors
                         </button>
                     </Card.Footer>
                 </Card.Content>
