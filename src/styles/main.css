@@ -62,7 +62,7 @@ code {
     grid-template-columns: 0.5fr 0.5fr 1fr;
     grid-template-rows: auto auto;
     grid-gap: 10px;
-    margin-top: 10px;
+    margin: 18px 0 8px 0;
 }
 
 .bottom-row {
@@ -116,7 +116,8 @@ code {
     transition: 0.2s ease;
 }
 
-.reset-colors-button {
+.reset-colors-button,
+.reset-animal-button {
     background-color: #ffdcd5;
     color: #e56555;
     font-family: 'Arial', sans-serif;
@@ -133,6 +134,22 @@ code {
 }
 
 .generate-button:active {
+    transform: scale(0.97);
+}
+
+.reset-animal-button:hover {
+    filter: opacity(0.7);
+}
+
+.reset-animal-button:active {
+    transform: scale(0.97);
+}
+
+.reset-colors-button:hover {
+    filter: opacity(0.7);
+}
+
+.reset-colors-button:active {
     transform: scale(0.97);
 }
 
@@ -328,7 +345,8 @@ button[disabled] {
     font-size: 16px;
     color: #757575;
     cursor: pointer;
-    grid-column: 1 / -1;
+    grid-column-start: 1;
+    grid-column-end: 3;
 }
 
 .dropdown:focus,

@@ -3,9 +3,11 @@ import { createSignal } from 'solid-js'
 export interface DropdownOption {
     value: string
     label: string
+    placeholder?: boolean
 }
 
 interface DropdownProps {
+    ref?: any
     options: DropdownOption[]
     defaultValue?: string
     disabled?: boolean
@@ -27,13 +29,21 @@ export const Dropdown = (props: DropdownProps) => {
 
     return (
         <select
+            ref={props.ref}
             class="dropdown"
             onChange={handleChange}
             value={selectedValue()}
             disabled={props.disabled}
         >
             {props.options.map(option => (
-                <option value={option.value}>{option.label}</option>
+                <option
+                    value={option.value}
+                    {...(option.placeholder
+                        ? { disabled: true, selected: true }
+                        : {})}
+                >
+                    {option.label}
+                </option>
             ))}
         </select>
     )

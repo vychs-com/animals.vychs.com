@@ -1,6 +1,6 @@
 import api, { wrapGetResponse } from '../helpers/api'
 
-export const generateRandomAnimal = async ({
+export const generateRandomAnimal = async function ({
     animal,
     color,
     background,
@@ -8,15 +8,11 @@ export const generateRandomAnimal = async ({
     animal?: string
     color?: string
     background?: string
-}) => {
+}) {
     return wrapGetResponse(
         await api.get('/animals/draw', {
             timeout: 10_000,
-            params: {
-                ...(animal ? { animal } : {}),
-                ...(color ? { color } : {}),
-                ...(background ? { background } : {}),
-            },
+            params: arguments[0] || {},
         })
     )
 }

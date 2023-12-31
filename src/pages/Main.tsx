@@ -1,5 +1,8 @@
 import { faTelegram } from '@fortawesome/free-brands-svg-icons'
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import {
+    faArrowRotateBack,
+    faChevronDown,
+} from '@fortawesome/free-solid-svg-icons'
 import { Badge } from '@suid/material'
 import Fa from 'solid-fa'
 import { Show, createSignal, onMount, type Component } from 'solid-js'
@@ -26,6 +29,9 @@ const AnimalsPage: Component = () => {
         createSignal<HTMLInputElement | undefined>()
     const [refAnimalColorPicker, setRefAnimalColorPicker] = createSignal<
         HTMLInputElement | undefined
+    >()
+    const [refAnimalSelect, setRefAnimalSelect] = createSignal<
+        HTMLSelectElement | undefined
     >()
     const [backgroundColor, setBackgroundColor] = createSignal<
         string | undefined
@@ -123,11 +129,16 @@ const AnimalsPage: Component = () => {
         )
     }
 
-    const onResetClick = () => {
+    const onResetColorsClick = () => {
         refBackgroundColorPicker()!.value = '#ffffff'
         refAnimalColorPicker()!.value = '#ffffff'
         setBackgroundColor()
         setAnimalColor()
+    }
+
+    const onResetAnimalClick = () => {
+        refAnimalSelect()!.value = 'none'
+        setAnimal()
     }
 
     const onBackgroundColorChange = (event: Event) => {
@@ -226,18 +237,24 @@ const AnimalsPage: Component = () => {
                                 </span>
                                 <button
                                     class="reset-colors-button"
-                                    onClick={onResetClick}
+                                    onClick={onResetColorsClick}
                                     disabled={
                                         !backgroundColor() && !animalColor()
                                     }
                                 >
-                                    Reset Colors
+                                    Colors{' '}
+                                    <Fa
+                                        /* @ts-ignore */
+                                        icon={faArrowRotateBack}
+                                    />
                                 </button>
                                 <Dropdown
+                                    ref={setRefAnimalSelect}
                                     options={[
                                         {
                                             value: 'none',
                                             label: 'Select Animal',
+                                            placeholder: true,
                                         },
                                         ...species(),
                                     ]}
@@ -245,6 +262,17 @@ const AnimalsPage: Component = () => {
                                     onChange={onDropdownChange}
                                     disabled={isSpeciesDropdownDisabled()}
                                 />
+                                <button
+                                    class="reset-animal-button"
+                                    onClick={onResetAnimalClick}
+                                    disabled={!animal()}
+                                >
+                                    Animal{' '}
+                                    <Fa
+                                        /* @ts-ignore */
+                                        icon={faArrowRotateBack}
+                                    />
+                                </button>
                             </div>
                         </div>
                         <div class="bottom-row">
