@@ -181,6 +181,12 @@ const AnimalsPage: Component = () => {
         }
     }
 
+    const onAnimalPictureClick = () => {
+        if (animalPicture()) {
+            window.open(animalPicture(), '_blank')
+        }
+    }
+
     return (
         <div class="container">
             <Card>
@@ -195,7 +201,10 @@ const AnimalsPage: Component = () => {
                             <img src={logo} width="52" alt="logotype" />
                         </a>
                     </Card.Header>
-                    <AnimalPicture animalPicture={animalPicture}>
+                    <AnimalPicture
+                        animalPicture={animalPicture}
+                        onClick={onAnimalPictureClick}
+                    >
                         <Show when={showPlaceholder()}>
                             <AnimalPicturePlaceholder />
                         </Show>

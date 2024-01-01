@@ -170,6 +170,15 @@ code {
     text-align: center;
 }
 
+.with-content {
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.with-content:hover {
+    transform: scale(1.01);
+}
+
 .background-picker,
 .animal-picker {
     display: flex;
