@@ -17,6 +17,6 @@ export const generateRandomAnimal = async function ({
     )
 }
 
-export const getSpeciesList = async () => {
+export const getAnimalsList = async () => {
     return wrapGetResponse(await api.get('/animals'))
 }
