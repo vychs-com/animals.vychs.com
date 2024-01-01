@@ -59,7 +59,7 @@ code {
 
 .middle-row {
     display: grid;
-    grid-template-columns: 0.5fr 0.5fr 1fr;
+    grid-template-columns: repeat(4, 0.5fr);
     grid-template-rows: auto auto;
     grid-gap: 10px;
     margin: 18px 0 8px 0;
@@ -105,8 +105,8 @@ code {
 .generate-button {
     flex-grow: 1;
     margin-right: 10px;
-    background-color: #e5f1ff;
-    color: #007aff;
+    background-color: #1976d2;
+    color: #fff;
     font-family: 'Arial', sans-serif;
     font-size: 18px;
     padding: 8px 16px;
@@ -120,6 +120,23 @@ code {
 .reset-animal-button {
     background-color: #ffdcd5;
     color: #e83f2a;
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.reset-animal-button {
+    grid-column-start: 3;
+    grid-column-end: 5;
+}
+
+.shuffle-colors-button {
+    background-color: #e5f1ff;
+    color: #007aff;
     font-family: 'Arial', sans-serif;
     font-size: 16px;
     padding: 8px 16px;
@@ -150,6 +167,14 @@ code {
 }
 
 .reset-colors-button:active {
+    transform: scale(0.97);
+}
+
+.shuffle-colors-button:hover {
+    filter: opacity(0.7);
+}
+
+.shuffle-colors-button:active {
     transform: scale(0.97);
 }
 
@@ -204,6 +229,7 @@ code {
     cursor: pointer;
     transition: 0.2s ease;
     outline: none;
+    flex-grow: 1;
 }
 
 .animal-name-input:active {
@@ -211,8 +237,8 @@ code {
 }
 
 .download-button {
-    background-color: #1976d2;
-    color: #fff;
+    background-color: #e5f1ff;
+    color: #007aff;
     font-family: 'Arial', sans-serif;
     font-size: 16px;
     padding: 8px 16px;
@@ -220,6 +246,7 @@ code {
     border-radius: 8px;
     cursor: pointer;
     transition: 0.2s ease;
+    flex-grow: 1;
 }
 
 .download-button:hover {
@@ -241,6 +268,7 @@ code {
 }
 
 .telegram-button {
+    width: 210px;
     background-color: #d3d3d3;
     color: #fff;
     font-family: 'Arial', sans-serif;
@@ -387,6 +415,10 @@ button[disabled] {
 
     .middle-row {
         gap: 10px;
+    }
+
+    .bottom-row {
+        flex-wrap: wrap;
     }
 }
 

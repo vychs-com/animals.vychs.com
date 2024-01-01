@@ -2,6 +2,9 @@ import { faTelegram } from '@fortawesome/free-brands-svg-icons'
 import {
     faArrowRotateBack,
     faChevronDown,
+    faDownload,
+    faShuffle,
+    faXmark,
 } from '@fortawesome/free-solid-svg-icons'
 import { Badge } from '@suid/material'
 import Fa from 'solid-fa'
@@ -9,6 +12,7 @@ import { ParentProps, createSignal, onMount } from 'solid-js'
 import { toast } from 'solid-toast'
 import { capitalize } from '../../helpers/capitalize'
 import { downloadImage } from '../../helpers/download-image'
+import { generateComplementaryColors } from '../../helpers/generate-complementary-colors'
 import { getAnimalsList } from '../../services/animals.service'
 import { AnimalData } from '../../types/animal/AnimalData'
 import { Dropdown, DropdownOption } from '../UI/Dropdown'
@@ -132,6 +136,20 @@ export const AnimalCardFooter = ({
         decrementCustomizationCount()
     }
 
+    const onShuffleColorsClick = () => {
+        const { primaryColor, complementaryColor } =
+            generateComplementaryColors()
+
+        if (!backgroundColor() && !animalColor()) {
+            setCustomizationCount(c => c + 2)
+        }
+
+        refBackgroundColorPicker()!.value = primaryColor
+        refAnimalColorPicker()!.value = complementaryColor
+        setBackgroundColor(primaryColor)
+        setAnimalColor(complementaryColor)
+    }
+
     const onBackgroundColorChange = (event: Event) => {
         const target = event.target as HTMLInputElement
         if (!target) return
@@ -221,6 +239,15 @@ export const AnimalCardFooter = ({
                         />
                     </span>
                     <button
+                        class="shuffle-colors-button"
+                        onClick={onShuffleColorsClick}
+                    >
+                        <Fa
+                            /* @ts-ignore */
+                            icon={faShuffle}
+                        />
+                    </button>
+                    <button
                         class="reset-colors-button"
                         onClick={onResetColorsClick}
                         disabled={!backgroundColor() && !animalColor()}
@@ -228,8 +255,7 @@ export const AnimalCardFooter = ({
                         <Fa
                             /* @ts-ignore */
                             icon={faArrowRotateBack}
-                        />{' '}
-                        Colors
+                        />
                     </button>
                     <Dropdown
                         ref={setRefAnimalSelect}
@@ -252,9 +278,8 @@ export const AnimalCardFooter = ({
                     >
                         <Fa
                             /* @ts-ignore */
-                            icon={faArrowRotateBack}
-                        />{' '}
-                        Animal
+                            icon={faXmark}
+                        />
                     </button>
                 </div>
             </div>
@@ -282,14 +307,22 @@ export const AnimalCardFooter = ({
                         !generatedAnimalData()?.username_available
                     }
                 >
-                    <Fa icon={faTelegram} />
+                    <Fa icon={faTelegram} />{' '}
+                    {showLoader() || !generatedAnimalPicture()
+                        ? ''
+                        : generatedAnimalData()?.username_available
+                        ? 'Available'
+                        : 'Unavailable'}
                 </button>
                 <button
                     class="download-button"
                     onClick={onDownloadPictureClick}
                     disabled={showLoader() || !generatedAnimalPicture()}
                 >
-                    Download
+                    <Fa
+                        /* @ts-ignore */
+                        icon={faDownload}
+                    />
                 </button>
             </div>
         </>
