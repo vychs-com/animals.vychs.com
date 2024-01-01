@@ -152,15 +152,21 @@ const AnimalsPage: Component = () => {
     const onBackgroundColorChange = (event: Event) => {
         const target = event.target as HTMLInputElement
         if (!target) return
+
+        if (!backgroundColor()) {
+            setBadgeContent(c => c + 1)
+        }
         setBackgroundColor(target.value)
-        setBadgeContent(c => c + 1)
     }
 
     const onAnimalColorChange = (event: Event) => {
         const target = event.target as HTMLInputElement
         if (!target) return
+
+        if (!animalColor()) {
+            setBadgeContent(c => c + 1)
+        }
         setAnimalColor(target.value)
-        setBadgeContent(c => c + 1)
     }
 
     const onDropdownChange = (option: string) => {
@@ -168,8 +174,10 @@ const AnimalsPage: Component = () => {
             setAnimal()
             setBadgeContent(c => c - 1)
         } else {
+            if (!animal()) {
+                setBadgeContent(c => c + 1)
+            }
             setAnimal(option)
-            setBadgeContent(c => c + 1)
         }
     }
 
