@@ -42,6 +42,7 @@ const AnimalsPage: Component = () => {
     const [isSpeciesDropdownDisabled, setIsSpeciesDropdownDisabled] =
         createSignal<boolean>(false)
     const [animal, setAnimal] = createSignal<string | undefined>()
+    const [badgeContent, setBadgeContent] = createSignal<number>(0)
 
     onMount(async () => {
         const res = await getSpeciesList()
@@ -130,34 +131,45 @@ const AnimalsPage: Component = () => {
     }
 
     const onResetColorsClick = () => {
-        refBackgroundColorPicker()!.value = '#ffffff'
-        refAnimalColorPicker()!.value = '#ffffff'
-        setBackgroundColor()
-        setAnimalColor()
+        if (backgroundColor()) {
+            refBackgroundColorPicker()!.value = '#ffffff'
+            setBackgroundColor()
+            setBadgeContent(c => c - 1)
+        }
+        if (animalColor()) {
+            refAnimalColorPicker()!.value = '#ffffff'
+            setAnimalColor()
+            setBadgeContent(c => c - 1)
+        }
     }
 
     const onResetAnimalClick = () => {
         refAnimalSelect()!.value = 'none'
         setAnimal()
+        setBadgeContent(c => c - 1)
     }
 
     const onBackgroundColorChange = (event: Event) => {
         const target = event.target as HTMLInputElement
         if (!target) return
         setBackgroundColor(target.value)
+        setBadgeContent(c => c + 1)
     }
 
     const onAnimalColorChange = (event: Event) => {
         const target = event.target as HTMLInputElement
         if (!target) return
         setAnimalColor(target.value)
+        setBadgeContent(c => c + 1)
     }
 
     const onDropdownChange = (option: string) => {
         if (option === 'none') {
             setAnimal()
+            setBadgeContent(c => c - 1)
         } else {
             setAnimal(option)
+            setBadgeContent(c => c + 1)
         }
     }
 
@@ -196,13 +208,20 @@ const AnimalsPage: Component = () => {
                                 onClick={toggleAccordion}
                                 class="accordion-toggle"
                             >
-                                <Fa
-                                    /* @ts-ignore */
-                                    icon={faChevronDown}
-                                    class={`icon ${
-                                        isAccordionOpen() ? 'rotate' : ''
-                                    }`}
-                                />
+                                <Badge
+                                    class="customization-counter"
+                                    color="primary"
+                                    invisible={!badgeContent()}
+                                    badgeContent={badgeContent()}
+                                >
+                                    <Fa
+                                        /* @ts-ignore */
+                                        icon={faChevronDown}
+                                        class={`icon ${
+                                            isAccordionOpen() ? 'rotate' : ''
+                                        }`}
+                                    />
+                                </Badge>
                             </button>
                         </div>
                         <div
@@ -242,11 +261,11 @@ const AnimalsPage: Component = () => {
                                         !backgroundColor() && !animalColor()
                                     }
                                 >
-                                    Colors{' '}
                                     <Fa
                                         /* @ts-ignore */
                                         icon={faArrowRotateBack}
-                                    />
+                                    />{' '}
+                                    Colors
                                 </button>
                                 <Dropdown
                                     ref={setRefAnimalSelect}
@@ -267,11 +286,11 @@ const AnimalsPage: Component = () => {
                                     onClick={onResetAnimalClick}
                                     disabled={!animal()}
                                 >
-                                    Animal{' '}
                                     <Fa
                                         /* @ts-ignore */
                                         icon={faArrowRotateBack}
-                                    />
+                                    />{' '}
+                                    Animal
                                 </button>
                             </div>
                         </div>
