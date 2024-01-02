@@ -333,7 +333,7 @@ export const AnimalCardFooter = ({
                     <Show
                         when={
                             !(generatedAnimalData() as AnimalData)
-                                .username_information?.on_auction
+                                ?.username_information?.on_auction
                         }
                         fallback={
                             <Fa
