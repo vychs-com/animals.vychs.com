@@ -116,10 +116,14 @@ export const AnimalCardFooter = ({
             return
         }
 
-        window.open(
-            (generatedAnimalData() as AnimalData).username_information.url,
-            '_blank'
-        )
+        const url = (generatedAnimalData() as AnimalData).username_information
+            .url
+        if (!url) {
+            toast.error('Url is currently unavailable')
+            return
+        }
+
+        window.open(url, '_blank')
     }
 
     const onResetColorsClick = () => {
