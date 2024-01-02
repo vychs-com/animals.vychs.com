@@ -3,6 +3,7 @@ import {
     faArrowRotateBack,
     faChevronDown,
     faDownload,
+    faGavel,
     faHippo,
     faImage,
     faShuffle,
@@ -10,7 +11,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { Badge } from '@suid/material'
 import Fa from 'solid-fa'
-import { Accessor, ParentProps, createSignal, onMount } from 'solid-js'
+import { Accessor, ParentProps, Show, createSignal, onMount } from 'solid-js'
 import { toast } from 'solid-toast'
 import { capitalize } from '../../helpers/capitalize'
 import { downloadImage } from '../../helpers/download-image'
@@ -329,7 +330,20 @@ export const AnimalCardFooter = ({
                             .username_information?.available
                     }
                 >
-                    <Fa icon={faTelegram} />{' '}
+                    <Show
+                        when={
+                            !(generatedAnimalData() as AnimalData)
+                                .username_information?.on_auction
+                        }
+                        fallback={
+                            <Fa
+                                /* @ts-ignore */
+                                icon={faGavel}
+                            />
+                        }
+                    >
+                        <Fa icon={faTelegram} />
+                    </Show>{' '}
                     {showLoader() || !generatedAnimalPicture()
                         ? ''
                         : (generatedAnimalData() as AnimalData)
