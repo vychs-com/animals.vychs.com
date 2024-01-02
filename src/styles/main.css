@@ -55,6 +55,7 @@ code {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 5px;
 }
 
 .middle-row {
@@ -104,7 +105,6 @@ code {
 
 .generate-button {
     flex-grow: 1;
-    margin-right: 10px;
     background-color: #1976d2;
     color: #fff;
     font-family: 'Arial', sans-serif;
@@ -114,6 +114,11 @@ code {
     border-radius: 8px;
     cursor: pointer;
     transition: 0.2s ease;
+}
+
+.hidden {
+    display: none !important;
+    pointer-events: none;
 }
 
 .reset-colors-button,
@@ -309,14 +314,14 @@ button[disabled] {
 
 .color-picker-label {
     font-family: 'Arial', sans-serif;
-    font-size: 14px;
+    font-size: 18px;
     color: #757575;
     margin-right: 5px;
 }
 
 .color-picker {
-    width: 55px;
-    height: 30px;
+    width: 85px;
+    height: 34.5px;
     border-radius: 8px;
     cursor: pointer;
     padding: 0;
@@ -352,6 +357,7 @@ button[disabled] {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 35px;
 }
 
 .icon {
@@ -395,7 +401,10 @@ button[disabled] {
 }
 
 .customization-counter span {
-    background: rgb(229 101 85 / 50%);
+    background-color: #e5f1ff;
+    color: #007aff;
+    right: -4px !important;
+    top: -2px !important;
 }
 
 @media only screen and (max-width: 700px) {
@@ -411,6 +420,10 @@ button[disabled] {
 
     .color-picker-label {
         display: none;
+    }
+
+    .color-picker {
+        width: 55px;
     }
 
     .middle-row {

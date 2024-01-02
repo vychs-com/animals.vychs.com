@@ -3,6 +3,8 @@ import {
     faArrowRotateBack,
     faChevronDown,
     faDownload,
+    faHippo,
+    faImage,
     faShuffle,
     faXmark,
 } from '@fortawesome/free-solid-svg-icons'
@@ -219,7 +221,13 @@ export const AnimalCardFooter = ({
             >
                 <div class="middle-row">
                     <span class="background-picker">
-                        <label class="color-picker-label">Background:</label>
+                        <label class="color-picker-label">
+                            {/*Background:*/}
+                            <Fa
+                                /* @ts-ignore */
+                                icon={faImage}
+                            />
+                        </label>
                         <input
                             ref={setRefBackgroundColorPicker}
                             class="color-picker background-color-input"
@@ -229,7 +237,13 @@ export const AnimalCardFooter = ({
                         />
                     </span>
                     <span class="animal-picker">
-                        <label class="color-picker-label">Animal:</label>
+                        <label class="color-picker-label">
+                            {/*Animal:*/}
+                            <Fa
+                                /* @ts-ignore */
+                                icon={faHippo}
+                            />
+                        </label>
                         <input
                             ref={setRefAnimalColorPicker}
                             class="color-picker animal-color-input"
