@@ -336,20 +336,23 @@ export const AnimalCardFooter = ({
                                 ?.username_information?.on_auction
                         }
                         fallback={
-                            <Fa
-                                /* @ts-ignore */
-                                icon={faGavel}
-                            />
+                            <>
+                                <Fa
+                                    /* @ts-ignore */
+                                    icon={faGavel}
+                                />{' '}
+                                On Auction
+                            </>
                         }
                     >
-                        <Fa icon={faTelegram} />
-                    </Show>{' '}
-                    {showLoader() || !generatedAnimalPicture()
-                        ? ''
-                        : (generatedAnimalData() as AnimalData)
-                              .username_information?.available
-                        ? 'Available'
-                        : 'Unavailable'}
+                        <Fa icon={faTelegram} />{' '}
+                        {showLoader() || !generatedAnimalPicture()
+                            ? ''
+                            : (generatedAnimalData() as AnimalData)
+                                  .username_information?.available
+                            ? 'Available'
+                            : 'Unavailable'}
+                    </Show>
                 </button>
                 <button
                     class="download-button"
