@@ -1,4 +1,6 @@
+import { UsernameInformation } from '../UsernameInformation'
+
 export interface AnimalData {
     name: string
-    username_available: boolean
+    username_information: UsernameInformation
 }

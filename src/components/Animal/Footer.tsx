@@ -10,7 +10,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { Badge } from '@suid/material'
 import Fa from 'solid-fa'
-import { ParentProps, createSignal, onMount } from 'solid-js'
+import { Accessor, ParentProps, createSignal, onMount } from 'solid-js'
 import { toast } from 'solid-toast'
 import { capitalize } from '../../helpers/capitalize'
 import { downloadImage } from '../../helpers/download-image'
@@ -20,10 +20,14 @@ import { AnimalData } from '../../types/animal/AnimalData'
 import { Dropdown, DropdownOption } from '../UI/Dropdown'
 
 interface AnimalCardFooterProps extends ParentProps {
-    onGenerateAnimalClick: any
-    generatedAnimalData: any
-    generatedAnimalPicture: any
-    showLoader: any
+    onGenerateAnimalClick: (arg: {
+        animal?: string
+        color?: string
+        background?: string
+    }) => void
+    generatedAnimalData: Accessor<AnimalData | undefined>
+    generatedAnimalPicture: Accessor<string | undefined>
+    showLoader: Accessor<boolean>
 }
 
 export const AnimalCardFooter = ({
@@ -91,7 +95,7 @@ export const AnimalCardFooter = ({
         }
 
         toast.success('Download started')
-        downloadImage(generatedAnimalPicture())
+        downloadImage(generatedAnimalPicture() as string)
     }
 
     const onAnimalNameClick = () => {
@@ -112,11 +116,10 @@ export const AnimalCardFooter = ({
             return
         }
 
-        const telegramUsername = (generatedAnimalData() as AnimalData).name
-            .toLowerCase()
-            .split(' ')
-            .join('')
-        window.open('https://t.me/' + telegramUsername, '_blank')
+        window.open(
+            (generatedAnimalData() as AnimalData).username_information.url,
+            '_blank'
+        )
     }
 
     const onResetColorsClick = () => {
@@ -309,7 +312,8 @@ export const AnimalCardFooter = ({
                         'telegram-button ' +
                         (showLoader() || !generatedAnimalPicture()
                             ? 'grey'
-                            : generatedAnimalData()?.username_available
+                            : (generatedAnimalData() as AnimalData)
+                                  .username_information?.available
                             ? 'available'
                             : 'unavailable')
                     }
@@ -317,13 +321,15 @@ export const AnimalCardFooter = ({
                     disabled={
                         showLoader() ||
                         !generatedAnimalPicture() ||
-                        !generatedAnimalData()?.username_available
+                        !(generatedAnimalData() as AnimalData)
+                            .username_information?.available
                     }
                 >
                     <Fa icon={faTelegram} />{' '}
                     {showLoader() || !generatedAnimalPicture()
                         ? ''
-                        : generatedAnimalData()?.username_available
+                        : (generatedAnimalData() as AnimalData)
+                              .username_information?.available
                         ? 'Available'
                         : 'Unavailable'}
                 </button>
