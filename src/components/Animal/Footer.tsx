@@ -142,9 +142,8 @@ export const AnimalCardFooter = ({
         const { primaryColor, complementaryColor } =
             generateComplementaryColors()
 
-        if (!backgroundColor() && !animalColor()) {
-            setCustomizationCount(c => c + 2)
-        }
+        if (!backgroundColor()) setCustomizationCount(c => c + 1)
+        if (!animalColor()) setCustomizationCount(c => c + 1)
 
         refBackgroundColorPicker()!.value = primaryColor
         refAnimalColorPicker()!.value = complementaryColor
