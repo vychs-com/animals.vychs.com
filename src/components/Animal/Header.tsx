@@ -8,7 +8,7 @@ export const AnimalCardHeader = () => (
                 Random Animals
             </Badge>
         </h2>
-        <a class="logotype" href="https://t.me/softik">
+        <a class="logotype" href="https://vychs.com">
             <img src={logo} width="52" alt="logotype" />
         </a>
     </>
