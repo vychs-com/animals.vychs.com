@@ -2,10 +2,9 @@ import { faTelegram } from '@fortawesome/free-brands-svg-icons'
 import {
     faArrowRotateBack,
     faChevronDown,
+    faCopy,
     faDownload,
     faGavel,
-    faHippo,
-    faImage,
     faShuffle,
     faXmark,
 } from '@fortawesome/free-solid-svg-icons'
@@ -150,8 +149,8 @@ export const AnimalCardFooter = ({
         const { primaryColor, complementaryColor } =
             generateComplementaryColors()
 
-        if (!backgroundColor()) setCustomizationCount(c => c + 1)
-        if (!animalColor()) setCustomizationCount(c => c + 1)
+        if (!backgroundColor()) incrementCustomizationCount()
+        if (!animalColor()) incrementCustomizationCount()
 
         refBackgroundColorPicker()!.value = primaryColor
         refAnimalColorPicker()!.value = complementaryColor
@@ -228,13 +227,12 @@ export const AnimalCardFooter = ({
             >
                 <div class="middle-row">
                     <span class="background-picker">
-                        <label class="color-picker-label">
-                            {/*Background:*/}
-                            <Fa
-                                /* @ts-ignore */
-                                icon={faImage}
-                            />
-                        </label>
+                        {/*<label class="color-picker-label">*/}
+                        {/*    Background:*/}
+                        {/*    <Fa*/}
+                        {/*        icon={faImage}*/}
+                        {/*    />*/}
+                        {/*</label>*/}
                         <input
                             ref={setRefBackgroundColorPicker}
                             class="color-picker background-color-input"
@@ -244,13 +242,12 @@ export const AnimalCardFooter = ({
                         />
                     </span>
                     <span class="animal-picker">
-                        <label class="color-picker-label">
-                            {/*Animal:*/}
-                            <Fa
-                                /* @ts-ignore */
-                                icon={faHippo}
-                            />
-                        </label>
+                        {/*<label class="color-picker-label">*/}
+                        {/*    Animal:*/}
+                        {/*    <Fa*/}
+                        {/*        icon={faHippo}*/}
+                        {/*    />*/}
+                        {/*</label>*/}
                         <input
                             ref={setRefAnimalColorPicker}
                             class="color-picker animal-color-input"
@@ -305,13 +302,23 @@ export const AnimalCardFooter = ({
                 </div>
             </div>
             <div class="bottom-row">
-                <input
-                    class="animal-name-input"
-                    type="text"
-                    value={generatedAnimalData()?.name ?? '...'}
-                    onClick={onAnimalNameClick}
-                    readOnly
-                />
+                <div class="animal-name">
+                    <Show when={generatedAnimalData()?.name}>
+                        <i>
+                            <Fa
+                                /* @ts-ignore */
+                                icon={faCopy}
+                            />
+                        </i>
+                    </Show>
+                    <input
+                        class="animal-name-input"
+                        type="text"
+                        value={generatedAnimalData()?.name ?? '...'}
+                        onClick={onAnimalNameClick}
+                        readOnly
+                    />
+                </div>
                 <button
                     class={
                         'telegram-button ' +

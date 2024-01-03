@@ -220,6 +220,13 @@ code {
     background-color: transparent;
 }
 
+.animal-name {
+    display: flex;
+    width: calc(100% - 10px);
+    flex-grow: 1;
+    transition: 0.2s ease;
+}
+
 .animal-name-input {
     width: calc(100% - 10px);
     height: 25px;
@@ -232,12 +239,10 @@ code {
     color: #757575;
     text-align: center;
     cursor: pointer;
-    transition: 0.2s ease;
     outline: none;
-    flex-grow: 1;
 }
 
-.animal-name-input:active {
+.animal-name:active {
     transform: scale(0.97);
 }
 
@@ -313,14 +318,15 @@ button[disabled] {
 }
 
 .color-picker-label {
+    position: absolute;
     font-family: 'Arial', sans-serif;
     font-size: 18px;
-    color: #757575;
-    margin-right: 5px;
+    color: #ffffffba;
+    padding: 70px;
 }
 
 .color-picker {
-    width: 85px;
+    width: 160px;
     height: 34.5px;
     border-radius: 8px;
     cursor: pointer;
@@ -407,6 +413,12 @@ button[disabled] {
     top: -2px !important;
 }
 
+.bottom-row i {
+    position: absolute;
+    padding: 7px 0 0 15px;
+    color: #757575;
+}
+
 @media only screen and (max-width: 700px) {
     .animal-picture {
         width: 70vw;
@@ -423,7 +435,7 @@ button[disabled] {
     }
 
     .color-picker {
-        width: 55px;
+        width: 60px;
     }
 
     .middle-row {
