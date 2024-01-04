@@ -116,8 +116,7 @@ export const AnimalCardFooter = ({
             return
         }
 
-        const url = (generatedAnimalData() as AnimalData).username_information
-            .url
+        const url = (generatedAnimalData() as AnimalData).username.url
         if (!url) {
             toast.error('Url is currently unavailable')
             return
@@ -324,8 +323,8 @@ export const AnimalCardFooter = ({
                         'telegram-button ' +
                         (showLoader() || !generatedAnimalPicture()
                             ? 'grey'
-                            : (generatedAnimalData() as AnimalData)
-                                  .username_information?.available
+                            : (generatedAnimalData() as AnimalData).username
+                                  ?.available
                             ? 'available'
                             : 'unavailable')
                     }
@@ -333,14 +332,14 @@ export const AnimalCardFooter = ({
                     disabled={
                         showLoader() ||
                         !generatedAnimalPicture() ||
-                        !(generatedAnimalData() as AnimalData)
-                            .username_information?.available
+                        !(generatedAnimalData() as AnimalData).username
+                            ?.available
                     }
                 >
                     <Show
                         when={
-                            !(generatedAnimalData() as AnimalData)
-                                ?.username_information?.on_auction
+                            !(generatedAnimalData() as AnimalData)?.username
+                                ?.on_auction
                         }
                         fallback={
                             <>
@@ -355,8 +354,8 @@ export const AnimalCardFooter = ({
                         <Fa icon={faTelegram} />{' '}
                         {showLoader() || !generatedAnimalPicture()
                             ? ''
-                            : (generatedAnimalData() as AnimalData)
-                                  .username_information?.available
+                            : (generatedAnimalData() as AnimalData).username
+                                  ?.available
                             ? 'Available'
                             : 'Unavailable'}
                     </Show>
