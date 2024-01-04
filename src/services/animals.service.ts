@@ -20,3 +20,7 @@ export const generateRandomAnimal = async function ({
 export const getAnimalsList = async () => {
     return wrapGetResponse(await api.get('/animals'))
 }
+
+export const updateUsage = async () => {
+    return wrapGetResponse(await api.get('/animals/usage'))
+}

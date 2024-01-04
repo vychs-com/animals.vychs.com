@@ -5,7 +5,7 @@ import { AnimalPicture } from '../components/Animal/Picture'
 import { AnimalPicturePlaceholder } from '../components/Animal/Placeholder'
 import Card from '../components/UI/Card'
 import { Loader } from '../components/UI/Loader'
-import { generateRandomAnimal } from '../services/animals.service'
+import { generateRandomAnimal, updateUsage } from '../services/animals.service'
 import { AnimalData } from '../types/animal/AnimalData'
 
 export const MainPage: Component = () => {
@@ -51,6 +51,8 @@ export const MainPage: Component = () => {
 
             setGeneratedAnimalPicture(import.meta.env.VITE_MEDIA_URL + url)
             setGeneratedAnimalData(rest)
+
+            await updateUsage()
         } catch (e) {
             console.error(e)
             resetAnimalPicture()
